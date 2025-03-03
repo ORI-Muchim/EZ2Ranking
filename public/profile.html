@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZ2Ranking - 프로필 수정</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 구글 폰트 Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="index.html" class="logo-link">EZ2Ranking</a></h1>
+                </div>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="/">홈</a></li>
+                        <li><a href="/rankings.html">랭킹</a></li>
+                        <li><a href="/records.html">내 기록</a></li>
+                        <li><a href="/upload.html">기록 등록</a></li>
+                    </ul>
+                </div>
+                <div class="auth-buttons">
+                    <button id="login-btn" class="btn" onclick="location.href='/login.html'">로그인</button>
+                    <button id="register-btn" class="btn btn-primary" onclick="location.href='/register.html'">회원가입</button>
+                </div>
+                <div class="user-profile hidden">
+                    <img src="/images/default-profile.png" alt="프로필" id="profile-img">
+                    <span id="username-display">사용자</span>
+                    <div class="dropdown">
+                        <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+                        <div class="dropdown-content">
+                            <a href="/profile.html">내 프로필</a>
+                            <a href="#" id="logout-btn">로그아웃</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <main class="profile-container">
+            <div class="profile-header">
+                <h1>프로필 수정</h1>
+                <p>개인정보와 프로필 이미지를 업데이트하세요.</p>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-image-section">
+                    <div class="profile-image-container">
+                        <img id="current-profile-image" src="/images/default-profile.png" alt="프로필 이미지">
+                        <div class="profile-image-overlay">
+                            <label for="profile-image-upload" class="upload-btn">
+                                <i class="fas fa-camera"></i>
+                            </label>
+                            <input type="file" id="profile-image-upload" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    <p class="profile-image-hint">이미지를 클릭하여 변경</p>
+                </div>
+                
+                <div class="profile-form-section">
+                    <form id="profile-form" class="profile-form">
+                        <div class="form-group">
+                            <label for="display-name">닉네임</label>
+                            <input type="text" id="display-name" name="displayName" placeholder="닉네임을 입력하세요">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">이메일</label>
+                            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" readonly>
+                            <small>이메일은 변경할 수 없습니다</small>
+                        </div>
+                        
+                        <div class="form-divider">
+                            <span>비밀번호 변경 (선택사항)</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new-password">새 비밀번호</label>
+                            <input type="password" id="new-password" name="newPassword" placeholder="새 비밀번호">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm-password">비밀번호 확인</label>
+                            <input type="password" id="confirm-password" name="confirmPassword" placeholder="새 비밀번호 확인">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn" id="cancel-btn">취소</button>
+                            <button type="submit" class="btn btn-primary" id="save-btn">저장</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>EZ2Ranking</h2>
+                </div>
+                <div class="footer-links">
+                    <a href="/about.html">소개</a>
+                    <a href="/terms.html">이용약관</a>
+                    <a href="/contact.html">문의하기</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 EZ2Ranking. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        
+        <div class="backdrop">
+            <div class="blur-overlay"></div>
+            <div class="cityscape-lights"></div>
+        </div>
+    </div>
+    
+    <script src="js/auth-api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

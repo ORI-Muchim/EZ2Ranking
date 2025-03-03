@@ -1,0 +1,163 @@
+/* 소개 페이지 스타일 */
+.about-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .page-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+  
+  .about-content {
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color);
+  }
+  
+  .about-section {
+    margin-bottom: 40px;
+  }
+  
+  .about-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .about-section h2 {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .about-section p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  
+  .about-image {
+    margin: 30px 0;
+    text-align: center;
+  }
+  
+  .about-image img {
+    max-width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+  }
+  
+  /* 특징 리스트 */
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 177, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  .feature-icon i {
+    font-size: 1.5rem;
+    color: var(--accent-primary);
+  }
+  
+  .feature-text h3 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+  
+  .feature-text p {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+  
+  /* 연락처 리스트 */
+  .contact-list {
+    margin-top: 20px;
+  }
+  
+  .contact-list li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+  }
+  
+  .contact-list li i {
+    color: var(--accent-primary);
+    width: 20px;
+    text-align: center;
+  }
+  
+  .contact-list li a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+  }
+  
+  .contact-list li a:hover {
+    text-decoration: underline;
+    color: var(--accent-secondary);
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .about-container {
+      margin: 20px auto;
+    }
+    
+    .page-header h1 {
+      font-size: 2rem;
+    }
+    
+    .about-content {
+      padding: 20px;
+    }
+    
+    .about-section h2 {
+      font-size: 1.5rem;
+    }
+    
+    .feature-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .feature-item {
+      margin-bottom: 20px;
+    }
+  }
+  

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZ2Ranking - 문의하기</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 구글 폰트 Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="index.html" class="logo-link">EZ2Ranking</a></h1>
+                </div>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="/">홈</a></li>
+                        <li><a href="/rankings.html">랭킹</a></li>
+                        <li><a href="/records.html">내 기록</a></li>
+                        <li><a href="/upload.html">기록 등록</a></li>
+                    </ul>
+                </div>
+                <div class="auth-buttons">
+                    <button id="login-btn" class="btn" onclick="location.href='/login.html'">로그인</button>
+                    <button id="register-btn" class="btn btn-primary" onclick="location.href='/register.html'">회원가입</button>
+                </div>
+                <div class="user-profile hidden">
+                    <img src="/images/default-profile.png" alt="프로필" id="profile-img">
+                    <span id="username-display">사용자</span>
+                    <div class="dropdown">
+                        <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+                        <div class="dropdown-content">
+                            <a href="/profile.html">내 프로필</a>
+                            <a href="#" id="logout-btn">로그아웃</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <main class="contact-container">
+            <div class="page-header">
+                <h1>문의하기</h1>
+                <p>서비스 이용 중 궁금한 점이나 문제가 있으신가요? 문의를 남겨주시면 빠르게 답변해드리겠습니다.</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>이메일</h3>
+                        <p>이메일로 문의하시면 1-2일 내에 답변해드립니다.</p>
+                        <a href="mailto:nemuigames7@gmail.com">nemuigames7@gmail.com</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <h3>디스코드</h3>
+                        <p>공식 디스코드 서버에서 빠르게 소통하세요.</p>
+                        <a href="https://discord.gg/ez2ranking" target="_blank">EZ2Ranking 디스코드 서버</a>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <h2>문의 양식</h2>
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">이름</label>
+                            <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">이메일</label>
+                            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">문의 유형</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">문의 유형을 선택하세요</option>
+                                <option value="account">계정 문의</option>
+                                <option value="service">서비스 이용 문의</option>
+                                <option value="bug">버그 신고</option>
+                                <option value="suggestion">기능 제안</option>
+                                <option value="other">기타 문의</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">문의 내용</label>
+                            <textarea id="message" name="message" rows="6" placeholder="문의 내용을 자세히 입력해주세요" required></textarea>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="agree-privacy" name="agree-privacy" required>
+                            <label for="agree-privacy">개인정보 수집 및 이용에 동의합니다.</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary submit-btn">
+                            <i class="fas fa-paper-plane"></i> 문의 보내기
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="faq-section">
+                    <h2>자주 묻는 질문</h2>
+                    
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>서비스 이용 중 오류가 발생했어요.</h3>
+                                <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>서비스 이용 중 오류가 발생한 경우, 브라우저 캐시를 삭제하고 페이지를 새로고침해보세요. 문제가 지속된다면 오류 발생 시점, 브라우저 정보, 사용 중인 기기 정보와 함께 이메일로 문의해주시면 빠르게 해결해드리겠습니다.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>비밀번호를 잊어버렸어요.</h3>
+                                <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>로그인 페이지에서 '비밀번호 찾기' 링크를 클릭하고, 가입 시 사용한 이메일을 입력하면 비밀번호 재설정 링크가 전송됩니다. 이메일이 도착하지 않는 경우 스팸 폴더를 확인해보세요.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>기록이 정확하게 인식되지 않아요.</h3>
+                                <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>이미지 품질이 낮거나 결과 화면이 명확하게 보이지 않을 경우 인식 오류가 발생할 수 있습니다. 더 선명한 이미지로 다시 시도하거나, 수동으로 정보를 입력해주세요. 지속적인 문제가 있다면 이미지와 함께 문의해주시기 바랍니다.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>계정을 삭제하고 싶어요.</h3>
+                                <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>이메일로 연락주세요. 연락을 보는 즉시 본인인증 진행하고 삭제 처리 해드리겠습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>EZ2Ranking</h2>
+                </div>
+                <div class="footer-links">
+                    <a href="/about.html">소개</a>
+                    <a href="/terms.html">이용약관</a>
+                    <a href="/contact.html" class="active">문의하기</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 EZ2Ranking. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        
+        <div class="backdrop">
+            <div class="blur-overlay"></div>
+            <div class="cityscape-lights"></div>
+        </div>
+    </div>
+    
+    <script src="js/auth-api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>

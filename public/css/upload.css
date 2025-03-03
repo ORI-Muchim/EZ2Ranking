@@ -1,0 +1,333 @@
+/* 기록 등록 페이지 스타일 */
+.upload-container {
+  max-width: 1000px; /* 최대 너비 증가 (원래 900px) */
+  margin: 40px auto;
+  padding: 0 20px;
+}
+  
+.upload-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+  
+.upload-header h1 {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+  
+.upload-header p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+  
+.upload-content {
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius);
+  padding: 40px; /* 약간 더 넓게 (원래 30px) */
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-color);
+  max-width: 100%; /* 최대 너비 확보 */
+}
+  
+/* 탭 메뉴 */
+.upload-tabs {
+  display: flex;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--border-color);
+}
+  
+.tab-btn {
+  padding: 12px 20px;
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  position: relative;
+}
+  
+.tab-btn:after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-primary);
+  transition: width var(--transition-speed);
+}
+  
+.tab-btn.active {
+  color: var(--accent-primary);
+}
+  
+.tab-btn.active:after {
+  width: 100%;
+}
+  
+.tab-btn:hover {
+  color: var(--accent-primary);
+}
+  
+.tab-pane {
+  display: none;
+}
+  
+.tab-pane.active {
+  display: block;
+}
+  
+/* 카메라 촬영 영역 */
+.camera-container {
+  position: relative;
+  width: 100%;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+  
+#camera-preview {
+  width: 100%;
+  height: auto;
+  background-color: #000;
+  display: block;
+  max-height: 500px;
+  object-fit: cover;
+}
+  
+.camera-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+  
+.camera-guide {
+  text-align: center;
+  margin-top: 15px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+  
+/* 파일 업로드 영역 */
+.file-upload-container {
+  width: 100%;
+  margin-bottom: 30px;
+}
+  
+.file-upload-area {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 60px; /* 패딩 크기 증가 (원래 40px) */
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  max-width: 100%; /* 최대 너비 확보 */
+}
+  
+.file-upload-area:hover {
+  border-color: var(--accent-primary);
+  background-color: rgba(255, 177, 0, 0.05);
+}
+  
+.file-upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+  
+.file-upload-content i {
+  font-size: 3rem;
+  color: var(--accent-primary);
+}
+  
+.file-upload-content p {
+  color: var(--text-secondary);
+}
+  
+.file-preview {
+  margin-top: 20px;
+  text-align: center;
+}
+  
+#file-preview-image {
+  max-width: 100%;
+  max-height: 500px; /* 최대 높이 증가 (원래 400px) */
+  border-radius: var(--border-radius);
+  margin-bottom: 15px;
+}
+  
+.file-preview-controls {
+  display: flex;
+  justify-content: center;
+}
+  
+/* 결과 컨테이너 */
+.result-container {
+  margin-top: 40px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 30px;
+}
+  
+.result-container h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  text-align: center;
+}
+  
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+  
+.result-item {
+  display: flex;
+  flex-direction: column;
+}
+  
+.result-item label {
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+  
+.result-item input,
+.result-item select {
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+  
+.result-item input:focus,
+.result-item select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(255, 177, 0, 0.3);
+}
+  
+.submit-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* 선택된 옵션이 보이지 않는 경우 색상 명확히 지정 */
+.result-item select option {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+/* 선택 시 가독성을 위해 색상 유지 */
+.result-item select:focus,
+.result-item select:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--text-primary);
+}
+
+/* 카메라 촬영 결과 컨테이너 - 파일 업로드 결과와 동일하게 설정 */
+.camera-result-container {
+  margin-top: 40px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 30px;
+}
+
+.camera-result-container h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.camera-result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.camera-result-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.camera-result-item label {
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.camera-result-item input,
+.camera-result-item select {
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.camera-result-item input:focus,
+.camera-result-item select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(255, 177, 0, 0.3);
+}
+
+/* 카메라 결과 제출 버튼 컨테이너 */
+.camera-submit-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* 카메라 결과 선택 옵션 스타일 - 파일 업로드와 동일 */
+.camera-result-item select option {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.camera-result-item select:focus,
+.camera-result-item select:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--text-primary);
+}
+  
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .camera-result-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .upload-container {
+    margin: 20px auto;
+  }
+  
+  .upload-header h1 {
+    font-size: 2rem;
+  }
+  
+  .file-upload-area {
+    padding: 20px;
+  }
+}

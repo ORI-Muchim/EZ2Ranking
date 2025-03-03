@@ -1,0 +1,604 @@
+/* 다크모드 로그인 페이지 스타일 - 노란색/황금색 테마 */
+:root {
+  /* 다크모드 컬러 팔레트 - 노란색/황금색 계열로 변경 */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --accent-primary: #ffb100;    /* 황금색으로 변경 */
+  --accent-secondary: #ff8c00;  /* 오렌지색으로 변경 */
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-tertiary: #707070;
+  --error-color: #ff4f4f;
+  --success-color: #4fff7a;
+  --overlay-color: rgba(0, 0, 0, 0.7);
+  
+  /* 그림자 - 노란색 계열로 변경 */
+  --shadow-soft: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --shadow-neon: 0 0 15px rgba(255, 177, 0, 0.5);  /* 노란색 네온으로 변경 */
+  
+  /* 테두리 */
+  --border-radius: 8px;
+  --border-color: #333333;
+  
+  /* 애니메이션 */
+  --transition-speed: 0.3s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+/* 배경 효과 */
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-color);
+  backdrop-filter: blur(8px);
+}
+
+.cityscape-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/cityscape-night.png'); /* 배경 이미지 경로 */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6;
+  z-index: -2;
+}
+
+/* 로그인 컨테이너 */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: rgba(30, 30, 30, 0.8);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-soft);
+  padding: 40px;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(5px);
+  z-index: 1;
+  transform: translateY(0);
+  transition: transform var(--transition-speed);
+}
+
+.login-container:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-soft), var(--shadow-neon);
+}
+
+/* 헤더 */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(255, 177, 0, 0.7);  /* 노란색 그림자로 변경 */
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* 로그인 폼 */
+.login-form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 15px 15px 15px 45px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all var(--transition-speed);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(255, 177, 0, 0.3);  /* 노란색 포커스 효과로 변경 */
+}
+
+.form-group input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color var(--transition-speed);
+}
+
+.toggle-password:hover {
+  color: var(--text-primary);
+}
+
+/* 폼 옵션 */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  font-size: 0.85rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: var(--accent-primary);  /* 노란색 체크박스로 변경 */
+}
+
+.forgot-password {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+.forgot-password:hover {
+  color: var(--accent-primary);
+  text-decoration: underline;
+}
+
+/* 버튼 */
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  margin-bottom: 20px;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 177, 0, 0.4);  /* 노란색 그림자 효과로 변경 */
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+/* 구분선 */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.divider span {
+  padding: 0 10px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* 소셜 로그인 */
+.social-login {
+  margin-bottom: 20px;
+}
+
+.social-btn {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-btn i {
+  margin-right: 10px;
+}
+
+.social-btn.google:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 푸터 */
+.login-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.login-footer a {
+  color: var(--accent-primary);  /* 노란색 링크로 변경 */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* 회원가입 및 비밀번호 찾기 페이지를 위한 추가 CSS */
+
+/* 회원가입 컨테이너 */
+.register-container {
+  max-width: 450px;
+}
+
+/* 비밀번호 찾기 컨테이너 */
+.forgot-password-container {
+  max-width: 400px;
+}
+
+/* 지시 텍스트 */
+.instruction-text {
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* 확인 메시지 */
+.confirmation-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: var(--border-radius);
+  background-color: rgba(79, 255, 122, 0.1); /* 연한 녹색 배경 */
+  border: 1px solid var(--success-color);
+}
+
+.confirmation-message p {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.confirmation-message .small-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* 뒤로 가기 링크 */
+.back-to-login {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-primary);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+.back-to-login:hover {
+  color: var(--accent-secondary);
+  text-decoration: underline;
+}
+
+/* 회원가입 버튼 */
+.register-btn {
+  margin-top: 15px;
+}
+
+/* 재설정 버튼 */
+.reset-btn {
+  margin-top: 15px;
+}
+
+/* 숨김 클래스 */
+.hidden {
+  display: none !important;
+}
+
+/* 성공 아이콘 애니메이션 */
+@keyframes success-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.confirmation-message i {
+  animation: success-pulse 2s infinite;
+}
+
+/* 에러 메시지 스타일 */
+.error-message {
+  color: var(--error-color);
+  font-size: 0.75rem;
+  margin-top: 5px;
+}
+
+.form-group.has-error input {
+  border-color: var(--error-color);
+}
+
+/* 입력 필드 위아래 간격 조정 */
+.form-group + .form-group {
+  margin-top: 15px;
+}
+
+/* 약관 동의 스타일 */
+.form-options {
+  margin-top: 15px;
+}
+
+/* 약관 동의 텍스트 크기 조정 */
+.remember-me label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.logo-link {
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 기본 텍스트 색상 유지 */
+  display: inline-block;
+  transition: color var(--transition-speed);
+}
+
+.logo-link:hover {
+  color: var(--accent-primary); /* 마우스 오버 시 황금색으로 변경 */
+}
+
+/* 아이콘 애니메이션 */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 177, 0, 0.5);  /* 노란색 글로우 효과로 변경 */
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 177, 0, 0.8);  /* 노란색 글로우 효과로 변경 */
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(255, 177, 0, 0.5);  /* 노란색 글로우 효과로 변경 */
+  }
+}
+
+.login-header h1 {
+  animation: glow 3s infinite;
+}
+
+/* 모바일 뷰 최적화 - 개선된 버전 */
+@media (max-width: 480px) {
+  .container {
+    align-items: flex-start; /* 컨테이너를 상단에 정렬 */
+    padding-top: 60px; /* 상단에서 적절한 여백 추가 */
+  }
+  
+  .login-container {
+    max-width: 85%;
+    padding: 25px 20px;
+    margin: 0 15px;
+  }
+  
+  .login-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+  }
+  
+  .login-header p {
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group input {
+    padding: 12px 12px 12px 40px;
+    font-size: 0.9rem;
+  }
+  
+  .form-group label {
+    left: 12px;
+  }
+  
+  .form-options {
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+  }
+  
+  .login-btn {
+    padding: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  
+  .divider span {
+    font-size: 0.75rem;
+    padding: 0 8px;
+  }
+  
+  .social-btn {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+  
+  .login-footer {
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+  
+  /* 회원가입 및 비밀번호 찾기 컨테이너도 조정 */
+  .register-container,
+  .forgot-password-container {
+    max-width: 85%;
+    padding: 25px 20px;
+  }
+  
+  /* 확인 메시지 크기 조정 */
+  .confirmation-message {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .confirmation-message p {
+    font-size: 0.85rem;
+  }
+  
+  .confirmation-message .small-text {
+    font-size: 0.75rem;
+  }
+
+  /* 모바일에서는 호버 효과 축소 */
+  .login-container:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* 더 작은 모바일 화면에서는 상단 여백 줄이기 */
+@media (max-width: 380px) {
+  .container {
+    padding-top: 40px; /* 더 작은 화면에서는 상단 여백 줄이기 */
+  }
+}
+
+/* 매우 작은 화면에 대한 추가 최적화 */
+@media (max-width: 360px) {
+  .container {
+    padding-top: 30px; /* 매우 작은 화면에서는 상단 여백 더 줄이기 */
+  }
+  
+  .login-container {
+    max-width: 92%;
+    padding: 20px 15px;
+  }
+  
+  .login-header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .form-group input {
+    padding: 10px 10px 10px 35px;
+  }
+  
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .forgot-password {
+    margin-top: 8px;
+  }
+}
+
+/* 가로 모드 최적화 */
+@media (max-height: 500px) and (orientation: landscape) {
+  .container {
+    padding-top: 20px; /* 가로 모드에서 상단 여백 조정 */
+  }
+  
+  .login-container {
+    max-width: 70%;
+    padding: 15px;
+    margin: 10px 0;
+  }
+  
+  .login-header {
+    margin-bottom: 10px;
+  }
+  
+  .login-header h1 {
+    font-size: 1.6rem;
+    margin-bottom: 2px;
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .form-options {
+    margin-bottom: 10px;
+  }
+  
+  .login-btn {
+    margin-bottom: 10px;
+  }
+  
+  .divider {
+    margin: 10px 0;
+  }
+}

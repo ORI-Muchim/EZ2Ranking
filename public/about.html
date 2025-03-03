@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZ2Ranking - 소개</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 구글 폰트 Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="index.html" class="logo-link">EZ2Ranking</a></h1>
+                </div>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="/">홈</a></li>
+                        <li><a href="/rankings.html">랭킹</a></li>
+                        <li><a href="/records.html">내 기록</a></li>
+                        <li><a href="/upload.html">기록 등록</a></li>
+                    </ul>
+                </div>
+                <div class="auth-buttons">
+                    <button id="login-btn" class="btn" onclick="location.href='/login.html'">로그인</button>
+                    <button id="register-btn" class="btn btn-primary" onclick="location.href='/register.html'">회원가입</button>
+                </div>
+                <div class="user-profile hidden">
+                    <img src="/images/default-profile.png" alt="프로필" id="profile-img">
+                    <span id="username-display">사용자</span>
+                    <div class="dropdown">
+                        <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+                        <div class="dropdown-content">
+                            <a href="/profile.html">내 프로필</a>
+                            <a href="#" id="logout-btn">로그아웃</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <main class="about-container">
+            <div class="page-header">
+                <h1>서비스 소개</h1>
+            </div>
+            
+            <div class="about-content">
+                <section class="about-section">
+                    <h2>EZ2Ranking이란?</h2>
+                    <p>EZ2Ranking은 EZ2DJ 게임 플레이어들을 위한 기록 관리 및 랭킹 시스템입니다. 플레이어들은 자신의 게임 플레이 기록을 관리하고, 다른 플레이어들과 실력을 비교할 수 있습니다.</p>
+                    <div class="about-image">
+                        <img src="images/ez2ac.png" alt="EZ2DJ 게임 화면">
+                    </div>
+                </section>
+                
+                <section class="about-section">
+                    <h2>주요 기능</h2>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h3>개인 기록 관리</h3>
+                                <p>모든 곡과 난이도에 대한 당신의 기록을 체계적으로 관리하세요. 점수, 등급, 플레이 날짜 등 다양한 정보를 한눈에 확인할 수 있습니다.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h3>랭킹 시스템</h3>
+                                <p>전체 서버의 랭킹을 확인하고 다른 플레이어들과 실력을 비교해보세요. 곡별, 난이도별로 세분화된 랭킹을 제공합니다.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h3>간편한 기록 등록</h3>
+                                <p>카메라로 결과 화면을 촬영하거나 스크린샷을 업로드하면 자동으로 기록이 인식됩니다. 번거로운 수동 입력 없이 빠르게 기록을 등록하세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="about-section">
+                    <h2>개발 배경</h2>
+                    <p>EZ2Ranking은 EZ2DJ 게임의 기록 관리를 현대화하고, 플레이어들 간의 소통과 경쟁을 촉진하기 위해 개발되었습니다. 기존의 오프라인 기록 관리 방식에서 벗어나, 웹 기반의 편리한 관리 시스템을 제공하고자 합니다.</p>
+                    <p>이 서비스는 플레이어들의 실력 향상과 게임에 대한 관심을 높이는 데 기여하고자 합니다. 앞으로도 계속해서 사용자들의 피드백을 반영하여 더 나은 서비스를 제공할 계획입니다.</p>
+                </section>
+                
+                <section class="about-section">
+                    <h2>연락처</h2>
+                    <p>서비스에 대한 문의사항이나 피드백이 있으시면 아래 방법으로 연락해 주세요:</p>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-envelope"></i> 이메일: <a href="mailto:nemuigames7@gmail.com">nemuigames7@gmail.com</a></li>
+                        <li><i class="fab fa-discord"></i> 디스코드: <a href="https://discord.gg/ez2ranking" target="_blank">EZ2Ranking 공식 서버</a></li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>EZ2Ranking</h2>
+                </div>
+                <div class="footer-links">
+                    <a href="/about.html" class="active">소개</a>
+                    <a href="/terms.html">이용약관</a>
+                    <a href="/contact.html">문의하기</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 EZ2Ranking. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        
+        <div class="backdrop">
+            <div class="blur-overlay"></div>
+            <div class="cityscape-lights"></div>
+        </div>
+    </div>
+    
+    <script src="js/auth-api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

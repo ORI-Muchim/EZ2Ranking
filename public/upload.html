@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZ2Ranking - 기록 등록</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/upload.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 구글 폰트 Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="index.html" class="logo-link">EZ2Ranking</a></h1>
+                </div>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="/">홈</a></li>
+                        <li><a href="/rankings.html">랭킹</a></li>
+                        <li><a href="/records.html">내 기록</a></li>
+                        <li><a href="/upload.html" class="active">기록 등록</a></li>
+                    </ul>
+                </div>
+                <div class="auth-buttons">
+                    <button id="login-btn" class="btn" onclick="location.href='/login.html'">로그인</button>
+                    <button id="register-btn" class="btn btn-primary" onclick="location.href='/register.html'">회원가입</button>
+                </div>
+                <div class="user-profile hidden">
+                    <img src="/images/default-profile.png" alt="프로필" id="profile-img">
+                    <span id="username-display">사용자</span>
+                    <div class="dropdown">
+                        <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+                        <div class="dropdown-content">
+                            <a href="/profile.html">내 프로필</a>
+                            <a href="#" id="logout-btn">로그아웃</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <main class="upload-container">
+            <div class="upload-header">
+                <h1>기록 등록</h1>
+                <p>플레이 결과 스크린샷을 등록하여 기록을 관리하세요.</p>
+            </div>
+            
+            <div class="upload-content">
+                <div class="upload-tabs">
+                    <button class="tab-btn active" data-tab="photo">사진 촬영</button>
+                    <button class="tab-btn" data-tab="file">파일 업로드</button>
+                </div>
+                
+                <div class="upload-tab-content">
+                    <!-- 사진 촬영 탭 -->
+                    <div class="tab-pane active" id="photo-tab">
+                        <div class="camera-container">
+                            <video id="camera-preview" autoplay playsinline></video>
+                            <canvas id="camera-capture" style="display: none;"></canvas>
+                            <div class="camera-controls">
+                                <button id="capture-btn" class="btn btn-primary">
+                                    <i class="fas fa-camera"></i> 촬영하기
+                                </button>
+                                <button id="retake-btn" class="btn" style="display: none;">
+                                    <i class="fas fa-redo"></i> 다시 촬영
+                                </button>
+                            </div>
+                            <div class="camera-guide">
+                                <p>화면에 결과 창이 잘 보이도록 정렬해주세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 파일 업로드 탭 -->
+                    <div class="tab-pane" id="file-tab">
+                        <div class="file-upload-container">
+                            <div class="file-upload-area" id="file-drop-area">
+                                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                                <div class="file-upload-content">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>이미지를 올려주세요</p>
+                                    <button class="btn btn-primary" id="file-select-btn">파일 선택</button>
+                                </div>
+                            </div>
+                            <div class="file-preview" style="display: none;">
+                                <img id="file-preview-image" src="" alt="미리보기">
+                                <div class="file-preview-controls">
+                                    <button class="btn" id="file-change-btn">
+                                        <i class="fas fa-redo"></i> 다른 파일 선택
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 인식 결과 및 제출 -->
+                <div class="result-container" style="display: none;">
+                    <h2>인식 결과</h2>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <label>곡 이름</label>
+                            <input type="text" id="song-title" placeholder="곡 이름을 입력하세요">
+                        </div>
+                        <div class="result-item">
+                            <label>난이도</label>
+                            <select id="difficulty">
+                                <option value="">난이도 선택</option>
+                                <option value="NM">NM</option>
+                                <option value="HD">HD</option>
+                                <option value="SHD">SHD</option>
+                                <option value="EX">EX</option>
+                            </select>
+                        </div>
+                        <div class="result-item">
+                            <label>난이도 레벨</label>
+                            <input type="number" id="difficulty-level" placeholder="난이도 레벨을 입력하세요">
+                        </div>                          
+                        <!-- 모드 선택 추가 -->
+                        <div class="result-item">
+                            <label>모드</label>
+                            <select id="mode">
+                                <option value="">모드 선택</option>
+                                <option value="5K ONLY">5K ONLY</option>
+                                <option value="5K RUBY">5K RUBY</option>
+                                <option value="5K STANDARD">5K STANDARD</option>
+                                <option value="7K STANDARD">7K STANDARD</option>
+                                <option value="10K STANDARD">10K STANDARD</option>
+                                <option value="14K STANDARD">14K STANDARD</option>
+                                <option value="TURNTABLE">TURNTABLE</option>
+                                <option value="EZ2CATCH">EZ2CATCH</option>
+                                <option value="CODENAME:VIOLET II">CODENAME:VIOLET II</option>
+                            </select>
+                        </div>
+                        <div class="result-item">
+                            <label>점수</label>
+                            <input type="number" id="score" placeholder="점수를 입력하세요">
+                        </div>
+                        <div class="result-item">
+                            <label>등급</label>
+                            <select id="grade">
+                                <option value="">등급 선택</option>
+                                <option value="S++++">S++++</option>
+                                <option value="S+++">S+++</option>
+                                <option value="S++">S++</option>
+                                <option value="S+">S+</option>
+                                <option value="S">S</option>
+                                <option value="A+">A+</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="F">F</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="submit-container">
+                        <button class="btn" id="cancel-btn">취소</button>
+                        <button class="btn btn-primary" id="submit-btn">기록 등록</button>
+                    </div>
+                </div>                
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>EZ2Ranking</h2>
+                </div>
+                <div class="footer-links">
+                    <a href="/about.html">소개</a>
+                    <a href="/terms.html">이용약관</a>
+                    <a href="/contact.html">문의하기</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 EZ2Ranking. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        
+        <div class="backdrop">
+            <div class="blur-overlay"></div>
+            <div class="cityscape-lights"></div>
+        </div>
+    </div>
+    
+    <script src="js/auth-api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/upload.js"></script>
+</body>
+</html>

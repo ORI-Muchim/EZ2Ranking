@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZ2Ranking - 랭킹</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/rankings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 구글 폰트 Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="index.html" class="logo-link">EZ2Ranking</a></h1>
+                </div>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="/">홈</a></li>
+                        <li><a href="/rankings.html" class="active">랭킹</a></li>
+                        <li><a href="/records.html">내 기록</a></li>
+                        <li><a href="/upload.html">기록 등록</a></li>
+                    </ul>
+                </div>
+                <div class="auth-buttons">
+                    <button id="login-btn" class="btn" onclick="location.href='/login.html'">로그인</button>
+                    <button id="register-btn" class="btn btn-primary" onclick="location.href='/register.html'">회원가입</button>
+                </div>
+                <div class="user-profile hidden">
+                    <img src="/images/default-profile.png" alt="프로필" id="profile-img">
+                    <span id="username-display">사용자</span>
+                    <div class="dropdown">
+                        <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+                        <div class="dropdown-content">
+                            <a href="/profile.html">내 프로필</a>
+                            <a href="#" id="logout-btn">로그아웃</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <main class="rankings-container">
+            <div class="page-header">
+                <h1>랭킹</h1>
+                <p>모든 플레이어들의 최고 기록을 확인하세요</p>
+            </div>
+            
+            <div class="rankings-content">
+                <div class="rankings-filters">
+                    <div class="filter-group">
+                        <label for="song-filter">곡 검색</label>
+                        <div class="search-input">
+                            <input type="text" id="song-filter" placeholder="곡 이름을 입력하세요">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="difficulty-filter">난이도</label>
+                        <select id="difficulty-filter">
+                            <option value="">모든 난이도</option>
+                            <option value="NM">NM</option>
+                            <option value="HD">HD</option>
+                            <option value="SHD">SHD</option>
+                            <option value="EX">EX</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="mode-filter">모드</label>
+                        <select id="mode-filter">
+                            <option value="">모든 모드</option>
+                            <option value="5K ONLY">5K ONLY</option>
+                            <option value="5K RUBY">5K RUBY</option>
+                            <option value="5K STANDARD">5K STANDARD</option>
+                            <option value="7K STANDARD">7K STANDARD</option>
+                            <option value="10K STANDARD">10K STANDARD</option>
+                            <option value="14K STANDARD">14K STANDARD</option>
+                            <option value="TURNTABLE">TURNTABLE</option>
+                            <option value="EZ2CATCH">EZ2CATCH</option>
+                            <option value="CODENAME:VIOLET II">CODENAME:VIOLET II</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-primary filter-btn">
+                        <i class="fas fa-filter"></i> 필터 적용
+                    </button>
+                </div>
+                
+                <div class="rankings-results">
+                    <div class="auth-required hidden">
+                        <div class="auth-message">
+                            <i class="fas fa-lock"></i>
+                            <h2>로그인이 필요합니다</h2>
+                            <p>랭킹을 확인하려면 로그인해주세요.</p>
+                            <button class="btn btn-primary" onclick="location.href='/login.html?redirect=rankings'">로그인하기</button>
+                        </div>
+                    </div>
+                    
+                    <div class="rankings-table-container">
+                        <table class="rankings-table">
+                            <thead>
+                                <tr>
+                                    <th class="rank-column">순위</th>
+                                    <th class="player-column">플레이어</th>
+                                    <th class="song-column">곡 정보</th>
+                                    <th class="score-column">점수</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rankings-data">
+                                <!-- 랭킹 데이터가 동적으로 추가됩니다 -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <p>랭킹 데이터를 불러오는 중...</p>
+                    </div>
+                    
+                    <div class="no-results hidden">
+                        <i class="fas fa-search"></i>
+                        <p>검색 결과가 없습니다.</p>
+                        <p class="sub-text">다른 검색어나 필터를 사용해 보세요.</p>
+                    </div>
+                </div>
+                
+                <div class="rankings-pagination">
+                    <button class="pagination-btn" id="prev-page" disabled>
+                        <i class="fas fa-chevron-left"></i> 이전
+                    </button>
+                    <div class="pagination-info">
+                        <span id="current-page">1</span> / <span id="total-pages">1</span>
+                    </div>
+                    <button class="pagination-btn" id="next-page" disabled>
+                        다음 <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 랭킹 상세 모달 -->
+            <div class="ranking-modal hidden" id="ranking-detail-modal">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2>랭킹 상세 정보</h2>
+                    <button class="modal-close-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="player-info">
+                    <img src="/images/default-profile.png" alt="플레이어 프로필" id="modal-player-img">
+                    <div class="player-details">
+                        <h3 id="modal-player-name">플레이어 이름</h3>
+                        <p id="modal-rank"><i class="fas fa-trophy"></i> <span>1위</span></p>
+                    </div>
+                    </div>
+                    
+                    <div class="record-info">
+                    <div class="info-item">
+                        <span class="info-label">곡 이름</span>
+                        <span class="info-value" id="modal-song-title">곡 이름</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">난이도</span>
+                        <span class="info-value" id="modal-difficulty">난이도</span>
+                    </div>
+                    <!-- 게임 모드 정보 추가 -->
+                    <div class="info-item">
+                        <span class="info-label">게임 모드</span>
+                        <span class="info-value" id="modal-mode">모드</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">점수</span>
+                        <span class="info-value score" id="modal-score">1,000,000</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">등급</span>
+                        <span class="info-value grade" id="modal-grade">S</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">날짜</span>
+                        <span class="info-value" id="modal-date">2025-02-25</span>
+                    </div>
+                    </div>
+                    
+                    <div class="record-image">
+                    <img src="" alt="기록 이미지" id="modal-record-img">
+                    </div>
+                </div>
+                </div>
+            </div>  
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>EZ2Ranking</h2>
+                </div>
+                <div class="footer-links">
+                    <a href="/about.html">소개</a>
+                    <a href="/terms.html">이용약관</a>
+                    <a href="/contact.html">문의하기</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 EZ2Ranking. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        
+        <div class="backdrop">
+            <div class="blur-overlay"></div>
+            <div class="cityscape-lights"></div>
+        </div>
+    </div>
+    
+    <script src="js/auth-api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/rankings.js"></script>
+</body>
+</html>
