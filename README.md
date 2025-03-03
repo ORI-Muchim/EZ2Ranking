@@ -139,7 +139,7 @@ The system uses SQLite with these main tables:
 
 ## License
 
-MIT License
+The EZ2Ranking are licensed under CC-BY-NC-4.0.
 
 ## Contact
 
