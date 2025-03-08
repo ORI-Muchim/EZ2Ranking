@@ -1022,3 +1022,81 @@
 .hidden {
   display: none !important;
 }
+
+
+
+/* 곡 목록 스타일 */
+.song-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.song-row:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.song-title-cell {
+  font-weight: 500;
+  padding: 12px 16px;
+}
+
+.song-modes-cell {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9em;
+}
+
+/* 뒤로가기 버튼 스타일 */
+.back-to-songs-btn {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 6px 12px;
+  border-radius: var(--border-radius);
+  font-size: 0.9em;
+  transition: all 0.2s;
+}
+
+.back-to-songs-btn:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+}
+
+.back-to-songs-btn i {
+  font-size: 0.8em;
+}
+
+/* 선택된 곡 제목 스타일 */
+.selected-song-heading {
+  margin: 10px 0;
+  font-size: 1.3em;
+  color: var(--primary-color);
+}
+
+/* 테이블 행 애니메이션 */
+.rankings-table tbody tr {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 모바일 반응형 스타일 */
+@media (max-width: 768px) {
+  .song-modes-cell {
+      display: none; /* 모바일에서는 모드 정보 숨김 */
+  }
+  
+  .selected-song-heading {
+      font-size: 1.1em;
+  }
+  
+  .back-to-songs-btn {
+      font-size: 0.8em;
+      padding: 4px 8px;
+  }
+}
