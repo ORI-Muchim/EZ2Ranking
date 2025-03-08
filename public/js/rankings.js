@@ -5,12 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let totalPages = 1;
     let rankingsData = [];
     let filteredData = [];
+    let uniqueSongs = new Set(); // 곡 이름 중복 제거를 위한 Set
+    let songsList = []; // 정렬된 곡 이름 목록
     
     // DOM 요소
     const rankingsTableBody = document.getElementById('rankings-data');
     const songFilter = document.getElementById('song-filter');
     const difficultyFilter = document.getElementById('difficulty-filter');
-    const modeFilter = document.getElementById('mode-filter'); // 모드 필터 추가
+    const modeFilter = document.getElementById('mode-filter');
     const filterBtn = document.querySelector('.filter-btn');
     const prevPageBtn = document.getElementById('prev-page');
     const nextPageBtn = document.getElementById('next-page');
@@ -76,19 +78,171 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             rankingsData = data;
             
-            // 초기 필터링된 데이터는 전체 데이터
-            filteredData = [...rankingsData];
+            // 곡 목록 생성
+            createSongsList();
             
-            // 페이지 정보 업데이트
-            updatePagination();
-            
-            // 데이터 표시
-            displayRankings();
+            // 초기 화면으로 곡 목록 표시
+            displaySongsList();
             
         } catch (error) {
             console.error('랭킹 데이터 로드 오류:', error);
             showError('랭킹 데이터를 불러오는데 실패했습니다.');
         }
+    }
+    
+    // 곡 목록 생성
+    function createSongsList() {
+        // 중복 없는 곡 이름 추출
+        rankingsData.forEach(record => {
+            uniqueSongs.add(record.song_title);
+        });
+        
+        // Set을 배열로 변환하고 가나다순 정렬
+        songsList = Array.from(uniqueSongs).sort((a, b) => 
+            a.localeCompare(b, 'ko-KR')
+        );
+    }
+    
+    // 곡 목록 표시
+    function displaySongsList() {
+        loadingContainer.classList.add('hidden');
+        
+        // 테이블 컨테이너 표시
+        rankingsTableContainer.classList.remove('hidden');
+        noResultsMessage.classList.add('hidden');
+        
+        // 헤더 변경
+        const tableHeader = document.querySelector('.rankings-table thead tr');
+        tableHeader.innerHTML = `
+            <th class="song-column">곡 이름</th>
+            <th class="mode-column">모드</th>
+        `;
+        
+        // 페이지네이션 정보 업데이트
+        totalPages = Math.ceil(songsList.length / itemsPerPage);
+        updatePagination();
+        
+        // 테이블 내용 비우기
+        rankingsTableBody.innerHTML = '';
+        
+        // 현재 페이지에 해당하는 곡 목록 표시
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, songsList.length);
+        
+        for (let i = startIndex; i < endIndex; i++) {
+            const songTitle = songsList[i];
+            
+            // 이 곡에 해당하는 모드 목록 추출
+            const modes = new Set();
+            rankingsData.forEach(record => {
+                if (record.song_title === songTitle) {
+                    modes.add(record.mode_name);
+                }
+            });
+            
+            const row = document.createElement('tr');
+            row.className = 'song-row';
+            row.setAttribute('data-song-title', songTitle);
+            
+            // 곡 이름 셀
+            const songCell = document.createElement('td');
+            songCell.className = 'song-title-cell';
+            songCell.textContent = songTitle;
+            
+            // 모드 셀
+            const modeCell = document.createElement('td');
+            modeCell.className = 'song-modes-cell';
+            modeCell.textContent = Array.from(modes).join(', ');
+            
+            row.appendChild(songCell);
+            row.appendChild(modeCell);
+            
+            // 클릭 이벤트 추가
+            row.addEventListener('click', () => {
+                showSongRankings(songTitle);
+            });
+            
+            rankingsTableBody.appendChild(row);
+        }
+        
+        updatePaginationButtons();
+    }
+    
+    // 특정 곡의 랭킹 표시
+    function showSongRankings(songTitle) {
+        // 선택된 곡으로 필터링
+        filteredData = rankingsData.filter(record => record.song_title === songTitle);
+        
+        // 페이지 초기화
+        currentPage = 1;
+        
+        // 필터 입력란에 선택된 곡 이름 설정
+        songFilter.value = songTitle;
+        
+        // 헤더 변경
+        const tableHeader = document.querySelector('.rankings-table thead tr');
+        tableHeader.innerHTML = `
+            <th class="rank-column">순위</th>
+            <th class="player-column">플레이어</th>
+            <th class="song-column">곡 정보</th>
+            <th class="score-column">점수</th>
+        `;
+        
+        // 뒤로가기 버튼 추가
+        addBackButton(songTitle);
+        
+        // 랭킹 표시
+        updatePagination();
+        displayRankings();
+    }
+    
+    // 뒤로가기 버튼 추가
+    function addBackButton(songTitle) {
+        // 기존 뒤로가기 버튼 제거
+        const existingBackBtn = document.querySelector('.back-to-songs-btn');
+        if (existingBackBtn) {
+            existingBackBtn.remove();
+        }
+        
+        // 필터 영역 위에 뒤로가기 버튼 추가
+        const backBtn = document.createElement('button');
+        backBtn.className = 'btn back-to-songs-btn';
+        backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> 곡 목록으로 돌아가기';
+        backBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // 필터 초기화
+            songFilter.value = '';
+            difficultyFilter.value = '';
+            modeFilter.value = '';
+            
+            // 곡 목록 표시
+            displaySongsList();
+            
+            // 뒤로가기 버튼 제거
+            backBtn.remove();
+            
+            // 선택된 곡 헤딩 제거
+            const existingHeading = document.querySelector('.selected-song-heading');
+            if (existingHeading) {
+                existingHeading.remove();
+            }
+        });
+        
+        // 페이지 헤더 아래에 추가
+        const pageHeader = document.querySelector('.page-header');
+        const songsHeading = document.createElement('h2');
+        songsHeading.textContent = `"${songTitle}" 랭킹`;
+        songsHeading.className = 'selected-song-heading';
+        
+        // 기존 제목 제거
+        const existingHeading = document.querySelector('.selected-song-heading');
+        if (existingHeading) {
+            existingHeading.remove();
+        }
+        
+        pageHeader.appendChild(songsHeading);
+        pageHeader.appendChild(backBtn);
     }
     
     // 로딩 표시
@@ -278,7 +432,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 페이지네이션 정보 업데이트
     function updatePagination() {
-        totalPages = Math.ceil(filteredData.length / itemsPerPage);
+        // 현재 표시 모드에 따라 다른 데이터 길이 사용
+        const dataLength = songFilter.value ? filteredData.length : songsList.length;
+        
+        totalPages = Math.ceil(dataLength / itemsPerPage);
         
         // 결과가 없으면 1 페이지로 설정
         if (totalPages === 0) {
@@ -313,21 +470,50 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyFilters() {
         const songText = songFilter.value.toLowerCase().trim();
         const difficultyValue = difficultyFilter.value;
-        const modeValue = modeFilter.value; // 모드 필터 값 가져오기
+        const modeValue = modeFilter.value;
         
-        // 검색어, 난이도, 모드에 따라 필터링
-        filteredData = rankingsData.filter(record => {
-            const matchesSong = !songText || record.song_title.toLowerCase().includes(songText);
-            const matchesDifficulty = !difficultyValue || record.difficulty_name === difficultyValue;
-            const matchesMode = !modeValue || record.mode_name === modeValue; // 모드 필터링 추가
+        // 검색어가 있으면 랭킹 표시 모드
+        if (songText || difficultyValue || modeValue) {
+            // 검색어, 난이도, 모드에 따라 필터링
+            filteredData = rankingsData.filter(record => {
+                const matchesSong = !songText || record.song_title.toLowerCase().includes(songText);
+                const matchesDifficulty = !difficultyValue || record.difficulty_name === difficultyValue;
+                const matchesMode = !modeValue || record.mode_name === modeValue;
+                
+                return matchesSong && matchesDifficulty && matchesMode;
+            });
             
-            return matchesSong && matchesDifficulty && matchesMode;
-        });
-        
-        // 페이지 초기화 및 다시 표시
-        currentPage = 1;
-        updatePagination();
-        displayRankings();
+            // 정확한 제목 일치가 있는지 확인
+            const exactMatch = songText ? rankingsData.some(record => 
+                record.song_title.toLowerCase() === songText.toLowerCase()
+            ) : false;
+            
+            // 정확한 일치가 있으면 해당 곡의 랭킹 표시
+            if (exactMatch) {
+                showSongRankings(
+                    rankingsData.find(record => 
+                        record.song_title.toLowerCase() === songText.toLowerCase()
+                    ).song_title
+                );
+            } else {
+                // 테이블 헤더 원래대로 변경
+                const tableHeader = document.querySelector('.rankings-table thead tr');
+                tableHeader.innerHTML = `
+                    <th class="rank-column">순위</th>
+                    <th class="player-column">플레이어</th>
+                    <th class="song-column">곡 정보</th>
+                    <th class="score-column">점수</th>
+                `;
+                
+                // 페이지 초기화 및 다시 표시
+                currentPage = 1;
+                updatePagination();
+                displayRankings();
+            }
+        } else {
+            // 필터 없으면 곡 목록으로 돌아가기
+            displaySongsList();
+        }
     }
     
     // 필터링이 시작됨을 표시하는 시각적 피드백
@@ -373,8 +559,14 @@ document.addEventListener('DOMContentLoaded', () => {
     prevPageBtn.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
-            updatePagination();
-            displayRankings();
+            // 현재 모드에 따라 다른 디스플레이 함수 호출
+            if (songFilter.value) {
+                updatePagination();
+                displayRankings();
+            } else {
+                updatePagination();
+                displaySongsList();
+            }
         }
     });
     
@@ -382,8 +574,14 @@ document.addEventListener('DOMContentLoaded', () => {
     nextPageBtn.addEventListener('click', () => {
         if (currentPage < totalPages) {
             currentPage++;
-            updatePagination();
-            displayRankings();
+            // 현재 모드에 따라 다른 디스플레이 함수 호출
+            if (songFilter.value) {
+                updatePagination();
+                displayRankings();
+            } else {
+                updatePagination();
+                displaySongsList();
+            }
         }
     });
 });
